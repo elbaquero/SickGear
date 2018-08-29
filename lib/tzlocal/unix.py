@@ -42,6 +42,12 @@ def _get_localzone(_root='/'):
         except pytz.UnknownTimeZoneError:
             pass
 
+	# Are we under Termux on Android?
+    if os.path.exists('/system/bin/getprop'):
+        import subprocess
+        androidtz = subprocess.check_output(['getprop', 'persist.sys.timezone']).strip().decode()
+        return pytz.timezone(androidtz)
+
     # Now look for distribution specific configuration files
     # that contain the timezone name.
     tzpath = os.path.join(_root, 'etc/timezone')
