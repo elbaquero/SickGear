@@ -75,7 +75,7 @@ def foldersAtPath(path, includeParent=False, includeFiles=False):
             return entries
         elif os.path.exists('/system/bin/getprop'):
             logger.log(u'Android')
-            path = '~/storage/'
+            path = '../../storage/'
             logger.log(u'Path %s' % path)
         else:
             path = '/'
