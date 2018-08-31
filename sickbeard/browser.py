@@ -56,6 +56,8 @@ def foldersAtPath(path, includeParent=False, includeFiles=False):
         under Unix this means "/", on Windows this will be a list of drive letters)
     """
 
+    logger.log(u'Path %s' % path)
+    
     # walk up the tree until we find a valid path
     while path and not ek.ek(os.path.isdir, path):
         if path == ek.ek(os.path.dirname, path):
@@ -71,6 +73,10 @@ def foldersAtPath(path, includeParent=False, includeFiles=False):
                 letter_path = '%s:\\' % letter
                 entries.append({'name': letter_path, 'path': letter_path})
             return entries
+        elif os.path.exists('/system/bin/getprop'):
+            logger.log(u'Android')
+            path = '$HOME/storage/'
+            logger.log(u'Path %s' % path)
         else:
             path = '/'
 
