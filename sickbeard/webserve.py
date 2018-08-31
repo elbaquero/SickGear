@@ -7095,8 +7095,12 @@ class ErrorLogs(MainHandler):
 
 class WebFileBrowser(MainHandler):
     def index(self, path='', includeFiles=False, *args, **kwargs):
-        if not path and os.path.exists('/system/bin/getprop'):
+        logger.log(u'Path %s' % path)
+		
+        if path == '/' and os.path.exists('/system/bin/getprop'):
+            logger.log(u'Android')
             path = '$HOME/storage'
+            logger.log(u'Path %s' % path)
         
         self.set_header('Content-Type', 'application/json')
         return json.dumps(foldersAtPath(path, True, bool(int(includeFiles))))
